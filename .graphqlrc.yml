@@ -1,0 +1,5 @@
+schema: "apps/graphql-server/src/**/*.graphql"
+# Remove comment marks when starting with the frontend
+# documents:
+#   - "apps/web/pages/**/*.(tsx|ts)"
+#   - "apps/web/src/**/*.(tsx|ts)"

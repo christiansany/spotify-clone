@@ -1,0 +1,4 @@
+# TODO: Add Schema
+type Artist {
+  id: ID!
+}

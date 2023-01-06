@@ -1,0 +1,4 @@
+# TODO: Add Schema
+type Song {
+  id: ID!
+}

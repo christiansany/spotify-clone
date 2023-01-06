@@ -1,0 +1,10 @@
+schema: "../graphql-server/**/*.graphql"
+documents:
+  - "./pages/**/*.(tsx|ts)"
+  - "./src/**/*.(tsx|ts)"
+generates:
+  __generated__/gql/:
+    preset: client-preset
+  __generated__/fragments.ts:
+    plugins:
+      - "fragment-matcher"
