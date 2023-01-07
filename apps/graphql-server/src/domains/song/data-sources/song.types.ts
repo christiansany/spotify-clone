@@ -1,6 +1,9 @@
 export interface SongDocument {
   id: string;
-  // TODO: Add more fields
+  name: string;
+  artist: string;
+  image: string;
+  track: string;
 }
 
 export interface SongDocumentIndex {

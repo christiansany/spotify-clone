@@ -1,10 +1,12 @@
 # Spotify Clone
 
-⚠️ This README contains information about this repository. For information about building the project go [here](./exercise/README.md)
+⚠️ This README contains information about this repository.  
+For information about building the project go [here](./exercise/README.md).
 
 ## What's inside?
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+This turborepo uses [npm](https://www.npmjs.com/) as a package manager.  
+It includes the following packages/apps:
 
 ### Apps and Packages
 
@@ -66,3 +68,7 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turborepo.org/docs/reference/configuration)
 - [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
 - [Installing packages](https://turbo.build/repo/docs/handbook/package-installation)
+
+## Credits
+
+The royalty free music is from [Bensound](https://bensound.com/free-music-for-videos).

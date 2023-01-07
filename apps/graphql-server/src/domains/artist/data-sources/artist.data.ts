@@ -1,19 +1,20 @@
 import { ArtistDocument, ArtistDocumentIndex } from "./artist.types";
 
-const table = "artist";
-
 export const artists: ArtistDocument[] = [
   {
-    id: `${table}:1`,
+    id: "artist:1",
+    name: "Benjamin Tissot",
+    image: "dreams-X2.webp",
   },
   {
-    id: `${table}:2`,
+    id: "artist:2",
+    name: "Eminem",
+    image: "littleidea-X2.webp",
   },
   {
-    id: `${table}:3`,
-  },
-  {
-    id: `${table}:4`,
+    id: "artist:3",
+    name: "Dr. Dre",
+    image: "summer-X2.webp",
   },
 ];
 
