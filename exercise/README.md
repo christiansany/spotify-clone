@@ -1,7 +1,6 @@
 # Spotify Clone
 
-![Browse](./assets/page-browse.png)
-TODO: Add picture of browse page including player
+![Browse](./assets/preview.png)
 
 Over the next weeks, we're building a spotify clone. Users can register/login,
 play songs, add sonst to their own playlists and much more.
@@ -13,12 +12,12 @@ Alternatively the existing in memory database can be used, but brings the
 downside that state is not persistend.
 
 To not waste so much time, a Turborepo has been prepared with both a Next.js App
-and a GraphQL Server App. TODO: Link to the prepared repo
+and a GraphQL Server App.
 
 In addition, to not waste much time on tedious CSS work, for the frontend we'll
 be using the React UI library [mui](https://mui.com/).
 
-Data for artists and songs already exists in a JSON file. (TODO Link to data file)
+Data for artists and songs already exists in the respective `*.data.ts` files.
 
 ## Pages / Requirements
 
@@ -53,8 +52,7 @@ Data for artists and songs already exists in a JSON file. (TODO Link to data fil
 - The User can login with username and password
 - When login is not successfull, an error message is displayed
 - When login is successfull, the user will get redirected to the browse page
-- TODO: Add link to login page
-- TODO: Update image
+- Links to the registration page in case the user is not registered yet
 
 ### Register
 
@@ -67,8 +65,7 @@ Data for artists and songs already exists in a JSON file. (TODO Link to data fil
   - The password should contain at least 3 characters
 - Security is not really part of the tutorial, so the password can be stored unhashed as text
 - Upon successfull registration the user is automatically logged in and redirected to the browse page
-- TODO: Add link to login page
-- TODO: Update image
+- Links to the login page in case the user is already registered
 
 ### Artists overview
 
@@ -188,12 +185,12 @@ Data for artists and songs already exists in a JSON file. (TODO Link to data fil
 
 - Displays a list of songs
 - See image for functionality of the list
-- TODO: Add functionality descriptions
 
 ### Player
 
-// TODO: Screenshot of Player
-// TODO: Funktionsbeschrieb vom Player
+![Player](./assets/component-player.png)
+
+- See image for functionality of the list
 
 ## Process / Progress
 
@@ -202,11 +199,13 @@ Data for artists and songs already exists in a JSON file. (TODO Link to data fil
 Focus on getting started with the Server.
 
 - Getting familiar with the repository
-- Hook up a real Database if needed
+- Hook up a real Database if needed/wanted
+  - If you don't state is not persistend and will be deleted every time the server restarts
 - Implement the GraphQL Schema for the existing data of artists & songs
   - Implement the corresponding resolvers to fetch the artists & songs
 - Implement the GraphQL Schema for users (registration/login)
   - Implement the corresponding resolvers to register and log in
+  - Security is not really part of the exercise, so just storing the password of the user in plain text is fine
 
 ### 2. Week
 
@@ -247,9 +246,4 @@ Try to finish one chunk after the other instead of trying to finish everything a
 
 ## Hilfreiche Ressourcen
 
-- Login -> TODO Video verlinken von MAx bezügöich GraphQL
-- MongoDB aufsetzen & nutzen -> TODO Ressource suchen
-
-## Quickstart
-
-TODO Add information about turborepo
+- Youtube Course with React, Node.js, MongoDB and GraphQL: https://www.youtube.com/watch?v=7giZGFDGnkc&list=PL55RiY5tL51rG1x02Yyj93iypUuHYXcB_&index=1
