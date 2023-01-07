@@ -1,25 +1,19 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
 import { resolvers, typeDefs } from "./schema";
+import { ApolloServer } from "apollo-server";
+
 import SonsAPI from "../domains/song/data-sources/song";
 import ArtistAPI from "../domains/artist/data-sources/artist";
-import { Context } from "./types";
 
-const server = new ApolloServer<Context>({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources: () => ({
+    Song: new SonsAPI(),
+    Artist: new ArtistAPI(),
+  }),
 });
 
-startStandaloneServer(server, {
-  listen: { port: 4000 },
-  context: async () => {
-    return {
-      dataSources: {
-        Song: new SonsAPI(),
-        Artist: new ArtistAPI(),
-      },
-    };
-  },
-}).then(({ url }) => {
+server.listen().then(({ url }) => {
+  // tslint:disable-next-line
   console.log(`🚀 Server ready at ${url}`);
 });

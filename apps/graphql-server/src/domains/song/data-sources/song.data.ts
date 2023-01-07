@@ -1,7 +1,5 @@
 import { SongDocument, SongDocumentIndex } from "./song.types";
 
-const table = "song";
-
 export const songs: SongDocument[] = [
   {
     id: "song:1",
