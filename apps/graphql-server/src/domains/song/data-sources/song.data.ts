@@ -1,4 +1,4 @@
-import { SongDocument, SongDocumentIndex } from "./song.types";
+import { SongDocument } from "./song.types";
 
 export const songs: SongDocument[] = [
   {
@@ -226,9 +226,3 @@ export const songs: SongDocument[] = [
     artist: "artist:3",
   },
 ];
-
-export const songIndex = () =>
-  songs.reduce<SongDocumentIndex>((acc, song) => {
-    acc[song.id] = song;
-    return acc;
-  }, {});

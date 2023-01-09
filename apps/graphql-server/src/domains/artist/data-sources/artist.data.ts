@@ -1,4 +1,4 @@
-import { ArtistDocument, ArtistDocumentIndex } from "./artist.types";
+import { ArtistDocument } from "./artist.types";
 
 export const artists: ArtistDocument[] = [
   {
@@ -17,9 +17,3 @@ export const artists: ArtistDocument[] = [
     image: "summer-X2.webp",
   },
 ];
-
-export const artistIndex = () =>
-  artists.reduce<ArtistDocumentIndex>((acc, artist) => {
-    acc[artist.id] = artist;
-    return acc;
-  }, {});

@@ -1,9 +1,9 @@
-import SongsAPI from "../domains/song/data-sources/song";
-import ArtistsAPI from "../domains/artist/data-sources/artist";
+import { SongsService } from "../domains/song/data-sources/song";
+import { ArtistsService } from "../domains/artist/data-sources/artist";
 
 export interface DataSources {
-  Song: SongsAPI;
-  Artist: ArtistsAPI;
+  Song: SongsService;
+  Artist: ArtistsService;
 }
 
 export interface Context {

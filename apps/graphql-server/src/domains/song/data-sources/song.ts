@@ -1,9 +1,11 @@
 import { DataSource } from "apollo-datasource";
-import { songIndex } from "./song.data";
+import { songs } from "./song.data";
 import { SongDocument } from "./song.types";
 
-export default class SongsAPI extends DataSource {
+// TODO: Implement Dataloaders
+
+export class SongsService extends DataSource {
   public async getById(id: string): Promise<SongDocument | null> {
-    return songIndex()[id] || null;
+    return songs.find((song) => song.id === id) || null;
   }
 }

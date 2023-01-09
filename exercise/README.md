@@ -200,7 +200,7 @@ Focus on getting started with the Server.
 
 - Getting familiar with the repository
 - Hook up a real Database if needed/wanted
-  - If you don't state is not persistend and will be deleted every time the server restarts
+  - If you don't, state is not persistent and will be deleted/reset every time the server restarts
 - Implement the GraphQL Schema for the existing data of artists & songs
   - Implement the corresponding resolvers to fetch the artists & songs
 - Implement the GraphQL Schema for users (registration/login)
