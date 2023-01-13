@@ -9,3 +9,4 @@ generates:
       mappers:
         Song: ../src/domains/song/data-sources/song.types#SongDocument
         Artist: ../src/domains/artist/data-sources/artist.types#ArtistDocument
+        User: ../src/domains/user/data-sources/user.types#UserDocument

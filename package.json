@@ -19,8 +19,9 @@
     "prettier": "latest",
     "turbo": "latest"
   },
+  "engineStrict": true,
   "engines": {
-    "node": ">=16.0.0"
+    "node": "16.19.0"
   },
-  "packageManager": "npm@8.1.2"
+  "packageManager": "npm@8.19.3"
 }

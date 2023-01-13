@@ -38,3 +38,4 @@ dist/
 **/*.log
 .DS_Store
 nodemon.json
+examples-domains

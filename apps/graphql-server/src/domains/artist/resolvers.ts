@@ -1,6 +1,6 @@
 import { Resolvers } from "../../../__generated__/schema.generated";
 
-const resolvers: Resolvers = {
+export const resolvers: Resolvers = {
   Query: {
     artist: (_, { id }, context) =>
       context.dataSources.Artist.getArtistById(id),
@@ -10,5 +10,3 @@ const resolvers: Resolvers = {
       context.dataSources.Song.getAllSongsByArtistId(parent.id, take, skip),
   },
 };
-
-export default resolvers;

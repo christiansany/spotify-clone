@@ -1,9 +1,11 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { SongDocument } from '../src/domains/song/data-sources/song.types';
 import { ArtistDocument } from '../src/domains/artist/data-sources/artist.types';
+import { UserDocument } from '../src/domains/user/data-sources/user.types';
 import { Context } from '../src/server/types';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -206,12 +208,12 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Song: ResolverTypeWrapper<SongDocument>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserDocument>;
   UserError: ResolverTypeWrapper<UserError>;
   UserLoginInput: UserLoginInput;
-  UserLoginPaylaod: ResolverTypeWrapper<UserLoginPaylaod>;
+  UserLoginPaylaod: ResolverTypeWrapper<Omit<UserLoginPaylaod, 'user'> & { user?: Maybe<ResolversTypes['User']> }>;
   UserRegisterInput: UserRegisterInput;
-  UserRegisterPaylaod: ResolverTypeWrapper<UserRegisterPaylaod>;
+  UserRegisterPaylaod: ResolverTypeWrapper<Omit<UserRegisterPaylaod, 'user'> & { user?: Maybe<ResolversTypes['User']> }>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -224,12 +226,12 @@ export type ResolversParentTypes = {
   Query: {};
   Song: SongDocument;
   String: Scalars['String'];
-  User: User;
+  User: UserDocument;
   UserError: UserError;
   UserLoginInput: UserLoginInput;
-  UserLoginPaylaod: UserLoginPaylaod;
+  UserLoginPaylaod: Omit<UserLoginPaylaod, 'user'> & { user?: Maybe<ResolversParentTypes['User']> };
   UserRegisterInput: UserRegisterInput;
-  UserRegisterPaylaod: UserRegisterPaylaod;
+  UserRegisterPaylaod: Omit<UserRegisterPaylaod, 'user'> & { user?: Maybe<ResolversParentTypes['User']> };
 };
 
 export type ArtistResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = {

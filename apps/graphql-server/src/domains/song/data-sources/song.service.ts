@@ -9,7 +9,7 @@ interface SongsLoaderKey {
   skip: number;
 }
 
-export class SongsService extends DataSource {
+export class SongService extends DataSource {
   private songLoader: Dataloader<string, SongDocument | null>;
   private songsLoader: Dataloader<SongsLoaderKey, SongDocument[]>;
 
