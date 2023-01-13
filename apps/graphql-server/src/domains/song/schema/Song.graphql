@@ -1,4 +1,7 @@
-# TODO: Add Schema
 type Song {
   id: ID!
+  name: String!
+  track: String!
+  image: String!
+  artist: Artist
 }

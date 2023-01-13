@@ -17,12 +17,40 @@ export type Scalars = {
 export type Artist = {
   __typename?: 'Artist';
   id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  songs?: Maybe<Array<Maybe<Song>>>;
+};
+
+
+export type ArtistSongsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  userLogin: UserLoginPaylaod;
+  userRegister: UserRegisterPaylaod;
+};
+
+
+export type MutationUserLoginArgs = {
+  input: UserRegisterInput;
+};
+
+
+export type MutationUserRegisterArgs = {
+  input: UserRegisterInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   artist?: Maybe<Artist>;
+  artists?: Maybe<Array<Maybe<Artist>>>;
+  me?: Maybe<User>;
   song?: Maybe<Song>;
+  songs?: Maybe<Array<Maybe<Song>>>;
 };
 
 
@@ -31,13 +59,65 @@ export type QueryArtistArgs = {
 };
 
 
+export type QueryArtistsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QuerySongArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QuerySongsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+};
+
 export type Song = {
   __typename?: 'Song';
+  artist?: Maybe<Artist>;
   id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  track: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  username: Scalars['String'];
+};
+
+export type UserError = {
+  __typename?: 'UserError';
+  field: Array<Scalars['String']>;
+  message: Scalars['String'];
+};
+
+export type UserLoginInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type UserLoginPaylaod = {
+  __typename?: 'UserLoginPaylaod';
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  userErrors: Array<UserError>;
+};
+
+export type UserRegisterInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type UserRegisterPaylaod = {
+  __typename?: 'UserRegisterPaylaod';
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  userErrors: Array<UserError>;
 };
 
 export type GetSongQueryVariables = Exact<{ [key: string]: never; }>;

@@ -17,12 +17,40 @@ export type Scalars = {
 export type Artist = {
   __typename?: 'Artist';
   id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  songs?: Maybe<Array<Maybe<Song>>>;
+};
+
+
+export type ArtistSongsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  userLogin: UserLoginPaylaod;
+  userRegister: UserRegisterPaylaod;
+};
+
+
+export type MutationUserLoginArgs = {
+  input: UserRegisterInput;
+};
+
+
+export type MutationUserRegisterArgs = {
+  input: UserRegisterInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   artist?: Maybe<Artist>;
+  artists?: Maybe<Array<Maybe<Artist>>>;
+  me?: Maybe<User>;
   song?: Maybe<Song>;
+  songs?: Maybe<Array<Maybe<Song>>>;
 };
 
 
@@ -31,13 +59,65 @@ export type QueryArtistArgs = {
 };
 
 
+export type QueryArtistsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySongArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QuerySongsArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+};
+
 export type Song = {
   __typename?: 'Song';
+  artist?: Maybe<Artist>;
   id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  track: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  username: Scalars['String'];
+};
+
+export type UserError = {
+  __typename?: 'UserError';
+  field: Array<Scalars['String']>;
+  message: Scalars['String'];
+};
+
+export type UserLoginInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type UserLoginPaylaod = {
+  __typename?: 'UserLoginPaylaod';
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  userErrors: Array<UserError>;
+};
+
+export type UserRegisterInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type UserRegisterPaylaod = {
+  __typename?: 'UserRegisterPaylaod';
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+  userErrors: Array<UserError>;
 };
 
 
@@ -121,9 +201,17 @@ export type ResolversTypes = {
   Artist: ResolverTypeWrapper<ArtistDocument>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Song: ResolverTypeWrapper<SongDocument>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  User: ResolverTypeWrapper<User>;
+  UserError: ResolverTypeWrapper<UserError>;
+  UserLoginInput: UserLoginInput;
+  UserLoginPaylaod: ResolverTypeWrapper<UserLoginPaylaod>;
+  UserRegisterInput: UserRegisterInput;
+  UserRegisterPaylaod: ResolverTypeWrapper<UserRegisterPaylaod>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -131,30 +219,84 @@ export type ResolversParentTypes = {
   Artist: ArtistDocument;
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   Song: SongDocument;
   String: Scalars['String'];
+  User: User;
+  UserError: UserError;
+  UserLoginInput: UserLoginInput;
+  UserLoginPaylaod: UserLoginPaylaod;
+  UserRegisterInput: UserRegisterInput;
+  UserRegisterPaylaod: UserRegisterPaylaod;
 };
 
 export type ArtistResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<ArtistSongsArgs, 'skip' | 'take'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  userLogin?: Resolver<ResolversTypes['UserLoginPaylaod'], ParentType, ContextType, RequireFields<MutationUserLoginArgs, 'input'>>;
+  userRegister?: Resolver<ResolversTypes['UserRegisterPaylaod'], ParentType, ContextType, RequireFields<MutationUserRegisterArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
+  artists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'skip' | 'take'>>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   song?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongArgs, 'id'>>;
+  songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySongsArgs, 'skip' | 'take'>>;
 };
 
 export type SongResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Song'] = ResolversParentTypes['Song']> = {
+  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  track?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserErrorResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UserError'] = ResolversParentTypes['UserError']> = {
+  field?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserLoginPaylaodResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UserLoginPaylaod'] = ResolversParentTypes['UserLoginPaylaod']> = {
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userErrors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserRegisterPaylaodResolvers<ContextType = Context, ParentType extends ResolversParentTypes['UserRegisterPaylaod'] = ResolversParentTypes['UserRegisterPaylaod']> = {
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userErrors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = Context> = {
   Artist?: ArtistResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Song?: SongResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UserError?: UserErrorResolvers<ContextType>;
+  UserLoginPaylaod?: UserLoginPaylaodResolvers<ContextType>;
+  UserRegisterPaylaod?: UserRegisterPaylaodResolvers<ContextType>;
 };
 
 

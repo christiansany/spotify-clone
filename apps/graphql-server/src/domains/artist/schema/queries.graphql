@@ -1,3 +1,4 @@
 type Query {
   artist(id: ID!): Artist
+  artists(take: Int = 5, skip: Int = 0): [Artist]
 }

@@ -1,4 +1,6 @@
-# TODO: Add Schema
 type Artist {
   id: ID!
+  name: String!
+  image: String!
+  songs(take: Int = 5, skip: Int = 0): [Song]
 }

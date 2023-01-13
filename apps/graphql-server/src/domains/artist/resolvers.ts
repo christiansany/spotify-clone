@@ -2,10 +2,12 @@ import { Resolvers } from "../../../__generated__/schema.generated";
 
 const resolvers: Resolvers = {
   Query: {
-    artist: (_, { id }, context) => context.dataSources.Artist.getById(id),
+    artist: (_, { id }, context) =>
+      context.dataSources.Artist.getArtistById(id),
   },
   Artist: {
-    // Field Resolvers of Artist
+    songs: (parent, { take, skip }, context) =>
+      context.dataSources.Song.getAllSongsByArtistId(parent.id, take, skip),
   },
 };
 

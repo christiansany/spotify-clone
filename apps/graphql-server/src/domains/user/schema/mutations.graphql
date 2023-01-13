@@ -1,0 +1,31 @@
+type Mutation {
+  userRegister(input: UserRegisterInput!): UserRegisterPaylaod!
+  userLogin(input: UserRegisterInput!): UserLoginPaylaod!
+}
+
+type UserError {
+  field: [String!]!
+  message: String!
+}
+
+input UserRegisterInput {
+  username: String!
+  password: String!
+}
+
+type UserRegisterPaylaod {
+  userErrors: [UserError!]!
+  user: User
+  token: String
+}
+
+input UserLoginInput {
+  username: String!
+  password: String!
+}
+
+type UserLoginPaylaod {
+  userErrors: [UserError!]!
+  user: User
+  token: String
+}
