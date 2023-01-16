@@ -9,14 +9,14 @@ import { Context } from "./types";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources: () => ({
-    Song: new SongService(),
-    Artist: new ArtistsService(),
-    User: new UserService(),
-  }),
-  context: ({ req }): Omit<Context, "dataSources"> => {
+  context: ({ req }): Context => {
     const token = req.headers.authorization;
-    return { token };
+    const dataSources = {
+      Song: new SongService(),
+      Artist: new ArtistsService(),
+      User: new UserService(),
+    };
+    return { token, dataSources };
   },
 });
 

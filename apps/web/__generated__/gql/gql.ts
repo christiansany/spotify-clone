@@ -14,6 +14,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query GetSong {\n    song(id: \"song:1\") {\n      id\n    }\n  }\n": types.GetSongDocument,
+    "\n  fragment ArtistDetail_Artist on Artist {\n    id\n    name\n    image\n  }\n": types.ArtistDetail_ArtistFragmentDoc,
+    "\n  mutation UserLogin($input: UserLoginInput!) {\n    userLogin(input: $input) {\n      userErrors {\n        field\n        message\n      }\n      user {\n        id\n        username\n      }\n      token\n    }\n  }\n": types.UserLoginDocument,
+    "\n  query GetSongDetails {\n    song(id: \"song:1\") {\n      id\n      name\n      artist {\n        ...ArtistDetail_Artist\n      }\n    }\n  }\n": types.GetSongDetailsDocument,
+    "\n  query GetSongs($take: Int!, $skip: Int) {\n    songs(take: $take, skip: $skip) {\n      id\n      name\n    }\n  }\n": types.GetSongsDocument,
 };
 
 /**
@@ -34,6 +38,22 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetSong {\n    song(id: \"song:1\") {\n      id\n    }\n  }\n"): (typeof documents)["\n  query GetSong {\n    song(id: \"song:1\") {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment ArtistDetail_Artist on Artist {\n    id\n    name\n    image\n  }\n"): (typeof documents)["\n  fragment ArtistDetail_Artist on Artist {\n    id\n    name\n    image\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UserLogin($input: UserLoginInput!) {\n    userLogin(input: $input) {\n      userErrors {\n        field\n        message\n      }\n      user {\n        id\n        username\n      }\n      token\n    }\n  }\n"): (typeof documents)["\n  mutation UserLogin($input: UserLoginInput!) {\n    userLogin(input: $input) {\n      userErrors {\n        field\n        message\n      }\n      user {\n        id\n        username\n      }\n      token\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetSongDetails {\n    song(id: \"song:1\") {\n      id\n      name\n      artist {\n        ...ArtistDetail_Artist\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetSongDetails {\n    song(id: \"song:1\") {\n      id\n      name\n      artist {\n        ...ArtistDetail_Artist\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetSongs($take: Int!, $skip: Int) {\n    songs(take: $take, skip: $skip) {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query GetSongs($take: Int!, $skip: Int) {\n    songs(take: $take, skip: $skip) {\n      id\n      name\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

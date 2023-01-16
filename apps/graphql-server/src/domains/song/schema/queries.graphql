@@ -1,4 +1,4 @@
 type Query {
   song(id: ID!): Song
-  songs(take: Int = 5, skip: Int = 0): [Song]
+  songs(take: Int = 5, skip: Int = 0): [Song!]!
 }

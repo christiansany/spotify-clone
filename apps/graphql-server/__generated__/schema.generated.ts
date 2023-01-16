@@ -38,7 +38,7 @@ export type Mutation = {
 
 
 export type MutationUserLoginArgs = {
-  input: UserRegisterInput;
+  input: UserLoginInput;
 };
 
 
@@ -49,10 +49,10 @@ export type MutationUserRegisterArgs = {
 export type Query = {
   __typename?: 'Query';
   artist?: Maybe<Artist>;
-  artists?: Maybe<Array<Maybe<Artist>>>;
+  artists: Array<Artist>;
   me?: Maybe<User>;
   song?: Maybe<Song>;
-  songs?: Maybe<Array<Maybe<Song>>>;
+  songs: Array<Song>;
 };
 
 
@@ -249,10 +249,10 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
-  artists?: Resolver<Maybe<Array<Maybe<ResolversTypes['Artist']>>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'skip' | 'take'>>;
+  artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'skip' | 'take'>>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   song?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongArgs, 'id'>>;
-  songs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Song']>>>, ParentType, ContextType, RequireFields<QuerySongsArgs, 'skip' | 'take'>>;
+  songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongsArgs, 'skip' | 'take'>>;
 };
 
 export type SongResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Song'] = ResolversParentTypes['Song']> = {

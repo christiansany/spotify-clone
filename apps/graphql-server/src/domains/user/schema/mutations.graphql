@@ -1,12 +1,6 @@
 type Mutation {
   userRegister(input: UserRegisterInput!): UserRegisterPaylaod!
-  userLogin(input: UserRegisterInput!): UserLoginPaylaod!
-}
-
-# TODO Move to global .graphql file so that this can be used anywhere
-type UserError {
-  field: [String!]!
-  message: String!
+  userLogin(input: UserLoginInput!): UserLoginPaylaod!
 }
 
 input UserRegisterInput {

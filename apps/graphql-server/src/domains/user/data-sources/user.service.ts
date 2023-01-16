@@ -1,34 +1,27 @@
-import { DataSource } from "apollo-datasource";
 import DataLoader from "dataloader";
 import {
   UserLoginInput,
-  UserLoginPaylaod,
   UserRegisterInput,
-  UserRegisterPaylaod,
 } from "../../../../__generated__/schema.generated";
 import { users } from "./user.data";
-import { UserDocument } from "./user.types";
+import {
+  UserDocument,
+  UserLoginPaylaod,
+  UserRegisterPaylaod,
+} from "./user.types";
 
 const createAuthToken = (user: UserDocument): string => `token::${user.id}`;
 const parseAuthToken = (token: string): string => token.split("::", 2)[1];
 
-export class UserService extends DataSource {
-  private userLoader: DataLoader<string, UserDocument | null>;
+export class UserService {
+  // DataLoaders
+  private userLoader = new DataLoader<string, UserDocument | null>(
+    async (ids) => ids.map((id) => users.find((song) => song.id === id) || null)
+  );
 
-  constructor() {
-    super();
-    this.userLoader = new DataLoader(async (ids) =>
-      ids.map((id) => users.find((song) => song.id === id) || null)
-    );
-  }
-
+  // Methods
   public async me(token: string): Promise<UserDocument | null> {
-    console.log({ token });
-
-    const userId = parseAuthToken(token);
-    console.log({ userId });
-
-    return this.userLoader.load(userId);
+    return this.userLoader.load(parseAuthToken(token));
   }
 
   public async register(
