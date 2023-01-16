@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { FunctionComponent } from "react";
 import { graphql } from "../../__generated__/gql";
 
 const UserLoginDocumentDocument = graphql(`
@@ -17,7 +18,7 @@ const UserLoginDocumentDocument = graphql(`
   }
 `);
 
-function LoginForm() {
+export const LoginForm: FunctionComponent = () => {
   const [login, { data, loading, error }] = useMutation(
     UserLoginDocumentDocument
   );
@@ -37,6 +38,7 @@ function LoginForm() {
       },
     }).then(({ data }) => {
       // TODO: if successfull, save the token so it can be sent with every request
+      // See https://www.apollographql.com/docs/react/api/link/introduction
       // See https://www.apollographql.com/docs/react/api/link/apollo-link-context
       console.log(data);
     });
@@ -44,9 +46,14 @@ function LoginForm() {
 
   return (
     <form onSubmit={onSubmit}>
+      {data?.userLogin?.userErrors?.map((error) => (
+        <p>
+          {error.field.join(",")}: {error.message}
+        </p>
+      ))}
       <label>
         Username
-        <input type="username" name="username" required />
+        <input type="text" name="username" required />
       </label>
       <label>
         Password
@@ -55,6 +62,4 @@ function LoginForm() {
       <button type="submit">Log in</button>
     </form>
   );
-}
-
-export default LoginForm;
+};
