@@ -4,6 +4,8 @@ export const resolvers: Resolvers = {
   Query: {
     artist: (_, { id }, context) =>
       context.dataSources.Artist.getArtistById(id),
+    artists: (_, { take, skip }, context) =>
+      context.dataSources.Artist.getAllArtists(take, skip),
   },
   Artist: {
     songs: (parent, { take, skip }, context) =>

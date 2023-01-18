@@ -35,7 +35,7 @@ export class SongService {
   public async getAllSongs(
     take: number,
     skip: number
-  ): Promise<SongDocument[] | null> {
+  ): Promise<SongDocument[]> {
     return this.songsLoader.load({ take, skip });
   }
 
@@ -43,7 +43,7 @@ export class SongService {
     artist: string,
     take: number,
     skip: number
-  ): Promise<SongDocument[] | null> {
+  ): Promise<SongDocument[]> {
     return this.songsLoader.load({ artist, take, skip });
   }
 }

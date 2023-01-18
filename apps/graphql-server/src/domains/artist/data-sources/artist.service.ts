@@ -33,7 +33,9 @@ export class ArtistsService {
   public async getAllArtists(
     take: number,
     skip: number
-  ): Promise<ArtistDocument[] | null> {
+  ): Promise<ArtistDocument[]> {
+    console.log("getAllArtists", take, skip);
+
     return this.artistsLoader.load({ take, skip });
   }
 }
