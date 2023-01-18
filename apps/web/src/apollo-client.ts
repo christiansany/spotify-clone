@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { concatPagination } from "@apollo/client/utilities";
 import fragmentTypes from "../__generated__/fragments";
 
 export const client = new ApolloClient({
@@ -9,7 +8,15 @@ export const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          songs: concatPagination(),
+          songs: {
+            keyArgs: ["where", "sort"],
+            merge(existing, incoming) {
+              return {
+                ...incoming,
+                items: [...(existing?.items || []), ...incoming.items],
+              };
+            },
+          },
         },
       },
     },

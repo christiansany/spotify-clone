@@ -1,4 +1,23 @@
 type Query {
   song(id: ID!): Song
-  songs(take: Int = 5, skip: Int = 0): [Song!]!
+  songs(
+    where: SongsFilter
+    take: Int = 5
+    skip: Int = 0
+    sort: SongSort = "NAME_ASC"
+  ): SongList!
+}
+
+enum SongSort {
+  NAME_ASC
+  NAME_DESC
+}
+
+input SongsFilter {
+  artistId: String
+}
+
+type SongList {
+  items: [Song!]!
+  totalCount: Int!
 }

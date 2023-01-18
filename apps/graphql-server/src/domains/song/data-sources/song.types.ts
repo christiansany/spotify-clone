@@ -5,3 +5,8 @@ export interface SongDocument {
   image: string;
   track: string;
 }
+
+export interface SongList {
+  items: SongDocument[];
+  totalCount: number;
+}

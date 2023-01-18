@@ -1,11 +1,16 @@
 import { songs } from "./song.data";
-import { SongDocument } from "./song.types";
+import { SongDocument, SongList } from "./song.types";
 import Dataloader from "dataloader";
+import {
+  SongsFilter,
+  SongSort,
+} from "../../../../__generated__/schema.generated";
 
 interface SongsLoaderKey {
   artist?: string;
   take: number;
   skip: number;
+  sort?: SongSort;
 }
 
 export class SongService {
@@ -16,15 +21,31 @@ export class SongService {
 
   private songsLoader = new Dataloader<SongsLoaderKey, SongDocument[], string>(
     async (keys) =>
-      keys.map(({ artist, take, skip }) => {
-        if (artist) {
-          return songs
-            .filter((song) => song.artist === artist)
-            .slice(skip, skip + take);
+      keys.map(({ artist, take, skip, sort }) => {
+        let _song = songs.slice(0);
+
+        if (sort) {
+          _song.sort((a, b) => {
+            if (sort === SongSort.NameAsc) {
+              return a.name.localeCompare(b.name);
+            }
+            if (sort === SongSort.NameDesc) {
+              return b.name.localeCompare(a.name);
+            }
+            return 0;
+          });
         }
-        return songs.slice(skip, skip + take);
+
+        if (artist) {
+          _song = _song.filter((song) => song.artist === artist);
+        }
+
+        return _song.slice(skip, skip + take);
       }),
-    { cacheKeyFn: ({ artist, take, skip }) => `${artist};${skip};${take}` }
+    {
+      cacheKeyFn: ({ artist, take, skip, sort }) =>
+        `${artist};${skip};${take};${sort}`,
+    }
   );
 
   // Methods
@@ -33,10 +54,19 @@ export class SongService {
   }
 
   public async getAllSongs(
+    where: SongsFilter | null = {},
     take: number,
-    skip: number
-  ): Promise<SongDocument[]> {
-    return this.songsLoader.load({ take, skip });
+    skip: number,
+    sort?: SongSort | null
+  ): Promise<SongList> {
+    return {
+      items: await this.songsLoader.load({
+        take,
+        skip,
+        sort: sort || SongSort.NameAsc,
+      }),
+      totalCount: songs.length,
+    };
   }
 
   public async getAllSongsByArtistId(

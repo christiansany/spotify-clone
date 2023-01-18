@@ -52,7 +52,7 @@ export type Query = {
   artists: Array<Artist>;
   me?: Maybe<User>;
   song?: Maybe<Song>;
-  songs: Array<Song>;
+  songs: SongList;
 };
 
 
@@ -74,7 +74,9 @@ export type QuerySongArgs = {
 
 export type QuerySongsArgs = {
   skip?: Maybe<Scalars['Int']>;
+  sort?: Maybe<SongSort>;
   take?: Maybe<Scalars['Int']>;
+  where?: Maybe<SongsFilter>;
 };
 
 export type Song = {
@@ -85,6 +87,21 @@ export type Song = {
   name: Scalars['String'];
   track: Scalars['String'];
 };
+
+export type SongList = {
+  __typename?: 'SongList';
+  items: Array<Song>;
+  totalCount: Scalars['Int'];
+};
+
+export type SongsFilter = {
+  artistId?: Maybe<Scalars['String']>;
+};
+
+export enum SongSort {
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC'
+}
 
 export type User = {
   __typename?: 'User';
@@ -207,6 +224,9 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Song: ResolverTypeWrapper<SongDocument>;
+  SongList: ResolverTypeWrapper<Omit<SongList, 'items'> & { items: Array<ResolversTypes['Song']> }>;
+  SongsFilter: SongsFilter;
+  SongSort: SongSort;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<UserDocument>;
   UserError: ResolverTypeWrapper<UserError>;
@@ -225,6 +245,8 @@ export type ResolversParentTypes = {
   Mutation: {};
   Query: {};
   Song: SongDocument;
+  SongList: Omit<SongList, 'items'> & { items: Array<ResolversParentTypes['Song']> };
+  SongsFilter: SongsFilter;
   String: Scalars['String'];
   User: UserDocument;
   UserError: UserError;
@@ -252,7 +274,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'skip' | 'take'>>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   song?: Resolver<Maybe<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongArgs, 'id'>>;
-  songs?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType, RequireFields<QuerySongsArgs, 'skip' | 'take'>>;
+  songs?: Resolver<ResolversTypes['SongList'], ParentType, ContextType, RequireFields<QuerySongsArgs, 'skip' | 'take'>>;
 };
 
 export type SongResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Song'] = ResolversParentTypes['Song']> = {
@@ -261,6 +283,12 @@ export type SongResolvers<ContextType = Context, ParentType extends ResolversPar
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   track?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SongListResolvers<ContextType = Context, ParentType extends ResolversParentTypes['SongList'] = ResolversParentTypes['SongList']> = {
+  items?: Resolver<Array<ResolversTypes['Song']>, ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -295,6 +323,7 @@ export type Resolvers<ContextType = Context> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Song?: SongResolvers<ContextType>;
+  SongList?: SongListResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserError?: UserErrorResolvers<ContextType>;
   UserLoginPaylaod?: UserLoginPaylaodResolvers<ContextType>;
