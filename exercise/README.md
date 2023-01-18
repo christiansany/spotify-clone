@@ -3,7 +3,7 @@
 ![Browse](./assets/preview.png)
 
 Over the next weeks, we're building a spotify clone. Users can register/login,
-play songs, add sonst to their own playlists and much more.
+play songs, add songs to their own playlists and much more.
 
 ## Stack
 
